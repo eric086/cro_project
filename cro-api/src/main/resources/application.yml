@@ -1,0 +1,12 @@
+server:
+  port: 8080
+  error:
+    path: "/error"
+
+spring:
+  application:
+    name: cro-api
+
+cro:
+  open-ai-token: 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
+
