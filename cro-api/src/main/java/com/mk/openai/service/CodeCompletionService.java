@@ -11,7 +11,7 @@ public class CodeCompletionService {
     private String token;
 
     public CodeCompletionService() {
-        token = "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";
+        token = "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";
     }
 
     public void codeWrite() {

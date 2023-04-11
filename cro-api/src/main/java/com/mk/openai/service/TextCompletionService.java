@@ -17,6 +17,10 @@ public class TextCompletionService {
     @Value("${cro.open-ai-token}")
     private String token;
 
+    public TextCompletionService() {
+        token = "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";
+    }
+
     public void chat() {
         Scanner scanner = new Scanner(System.in);
 
