@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mk.openai.mapper.TblProjectRegulationMapper">
+
+    <resultMap id="BaseResultMap" type="com.mk.openai.entity.dao.TblProjectRegulation">
+            <id property="id" column="id" jdbcType="OTHER"/>
+            <result property="projectId" column="project_id" jdbcType="INTEGER"/>
+            <result property="regulationId" column="regulation_id" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,project_id,regulation_id
+    </sql>
+</mapper>

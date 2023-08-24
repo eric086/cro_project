@@ -9,7 +9,24 @@ spring:
   data:
     mongodb:
       uri: mongodb://cro_user:123456@127.0.0.1:27017/cro
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/cro?serverTimezone=UTC
+    username: root
+    password: 123456
+    hikari:
+      data-source-properties:
+        useUnicode: true
+        characterEncoding: utf-8
+        useSSL: false
+  flyway:
+    locations: classpath:db/migrations
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 cro:
   open-ai-token: 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
+  token-cache-time: 28800 # 缓存8小时
+  upload-file-path: "/Users/eric/Downloads"
 

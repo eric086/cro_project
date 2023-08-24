@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mk.openai.mapper.TblFileMapper">
+
+    <resultMap id="BaseResultMap" type="com.mk.openai.entity.dao.TblFile">
+            <id property="id" column="id" jdbcType="OTHER"/>
+            <result property="uploader" column="uploader" jdbcType="INTEGER"/>
+            <result property="filePath" column="file_path" jdbcType="VARCHAR"/>
+            <result property="originalFilename" column="original_filename" jdbcType="VARCHAR"/>
+            <result property="createAt" column="create_at" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,uploader,file_path,
+        original_filename,create_at
+    </sql>
+</mapper>
