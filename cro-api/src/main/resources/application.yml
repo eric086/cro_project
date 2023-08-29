@@ -6,9 +6,9 @@ server:
 spring:
   application:
     name: cro-api
-  data:
-    mongodb:
-      uri: mongodb://cro_user:123456@127.0.0.1:27017/cro
+#  data:
+#    mongodb:
+#      uri: mongodb://cro_user:123456@127.0.0.1:27017/cro
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/cro?serverTimezone=UTC
     username: root

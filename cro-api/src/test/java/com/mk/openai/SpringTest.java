@@ -1,3 +1,4 @@
+/*
 package com.mk.openai;
 
 import com.mk.openai.dto.LawRaw;
@@ -27,3 +28,4 @@ public class SpringTest {
         System.out.println(data);
     }
 }
+*/
