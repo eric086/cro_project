@@ -10,9 +10,9 @@ spring:
 #    mongodb:
 #      uri: mongodb://cro_user:123456@127.0.0.1:27017/cro
   datasource:
-    url: jdbc:mysql://{{DB_HOST}}:3306/cro?serverTimezone=UTC
-    username: root
-    password: 5s2c3zxcsA
+    url: jdbc:mysql://{{DB_HOST}}:{{DB_PORT}}/{{DB_DATABASE}}?serverTimezone=UTC
+    username: {{DB_USERNAME}}
+    password: {{DB_PASSWORD}}
     hikari:
       data-source-properties:
         useUnicode: true
@@ -28,5 +28,5 @@ mybatis-plus:
 cro:
   open-ai-token: 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
   token-cache-time: 28800 # 缓存8小时
-  upload-file-path: "/Users/eric/Downloads"
+  upload-file-path: {{UPLOAD_FILE_PATH}}
 
