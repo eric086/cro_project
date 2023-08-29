@@ -8,10 +8,10 @@
 # 想了解配置文件更多用法请移步 【配置文件】（https://ci.coding.net/docs/configuration.html）
 
 develop:
-  docker: 
-    image: maven:3.9.2
   push:
-    - stages:
+    - docker:
+        image: maven:3.9.2
+      stages:
       - name: echo1
         script: mvn clean install -DskipTests
       - name: echo2
