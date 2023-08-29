@@ -10,9 +10,9 @@ spring:
 #    mongodb:
 #      uri: mongodb://cro_user:123456@127.0.0.1:27017/cro
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/cro?serverTimezone=UTC
+    url: jdbc:mysql://101.34.251.26:3306/cro?serverTimezone=UTC
     username: root
-    password: 123456
+    password: 5s2c3zxcsA
     hikari:
       data-source-properties:
         useUnicode: true
