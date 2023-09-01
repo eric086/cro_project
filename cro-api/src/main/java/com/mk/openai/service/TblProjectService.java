@@ -19,15 +19,13 @@ public interface TblProjectService extends IService<TblProject> {
 
     int createProject(Integer userId, ProjectRequest request);
 
-    void updateProject(Integer userId,ProjectRequest request);
+    void updateProject(Integer userId, ProjectRequest request);
 
-    void saveProjectBaseInfo(ProjectBaseRequest request);
+    void saveProjectBaseInfo(Integer userId, ProjectBaseRequest request);
 
-    void saveProjectExtend(ProjectExtendRequest request);
+    void saveProjectExtend(Integer userId, ProjectExtendRequest request);
 
     TblProject checkProject(Integer projectId);
-
-
 
 
 }

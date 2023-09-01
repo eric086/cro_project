@@ -88,8 +88,8 @@ public class TblProjectServiceImpl extends ServiceImpl<TblProjectMapper, TblProj
     }
 
     @Override
-    public void saveProjectBaseInfo(ProjectBaseRequest request) {
-        checkProject(request.getProjectId());
+    public void saveProjectBaseInfo(Integer userId, ProjectBaseRequest request) {
+        TblProject project = checkProject(request.getProjectId());
         // 删除
         LambdaQueryWrapper<TblProjectBase> lambdaQuery = Wrappers.lambdaQuery();
         lambdaQuery.eq(TblProjectBase::getProjectId, request.getProjectId());
@@ -107,12 +107,17 @@ public class TblProjectServiceImpl extends ServiceImpl<TblProjectMapper, TblProj
 
         tblProjectBaseService.saveBatch(insertList);
 
+        project.setUpdateBy(userId);
+        project.setUpdateAt(new Date());
+        updateById(project);
+
+
         //TODO AI重新选择法规
     }
 
     @Override
-    public void saveProjectExtend(ProjectExtendRequest request) {
-        checkProject(request.getProjectId());
+    public void saveProjectExtend(Integer userId, ProjectExtendRequest request) {
+        TblProject project = checkProject(request.getProjectId());
 
         checkExtend(request);
 
@@ -138,6 +143,10 @@ public class TblProjectServiceImpl extends ServiceImpl<TblProjectMapper, TblProj
         });
 
         tblProjectExtendService.saveBatch(insertList);
+
+        project.setUpdateBy(userId);
+        project.setUpdateAt(new Date());
+        updateById(project);
 
         //TODO AI重新选择法规
 

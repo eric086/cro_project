@@ -58,14 +58,14 @@ public class ProjectController {
 
     @PostMapping("/base/save")
     public JsonResponse<Void> baseInfoSave(@RequestBody @Valid ProjectBaseRequest request) {
-        tblProjectService.saveProjectBaseInfo(request);
+        tblProjectService.saveProjectBaseInfo(loginUserHolder.getCurrentUser().getUserId(), request);
 
         return JsonResponse.<Void>builder().wrapSuccess().build();
     }
 
     @PostMapping("/extend/save")
     public JsonResponse<Void> extendInfoSave(@RequestBody @Valid ProjectExtendRequest request) {
-        tblProjectService.saveProjectExtend(request);
+        tblProjectService.saveProjectExtend(loginUserHolder.getCurrentUser().getUserId(), request);
         return JsonResponse.<Void>builder().wrapSuccess().build();
     }
 
