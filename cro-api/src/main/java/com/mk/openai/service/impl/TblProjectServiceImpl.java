@@ -55,11 +55,13 @@ public class TblProjectServiceImpl extends ServiceImpl<TblProjectMapper, TblProj
         //base info
         LambdaQueryWrapper<TblProjectBase> baseLambdaQuery = Wrappers.lambdaQuery();
         baseLambdaQuery.eq(TblProjectBase::getProjectId, projectId);
+        baseLambdaQuery.orderByAsc(TblProjectBase::getId);
         List<TblProjectBase> baseInfoList = tblProjectBaseService.list(baseLambdaQuery);
 
         //extend info
         LambdaQueryWrapper<TblProjectExtend> extendLambdaQuery = Wrappers.lambdaQuery();
         extendLambdaQuery.eq(TblProjectExtend::getProjectId, projectId);
+        extendLambdaQuery.orderByAsc(TblProjectExtend::getId);
         List<TblProjectExtend> extendInfoList = tblProjectExtendService.list(extendLambdaQuery);
 
 
