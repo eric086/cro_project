@@ -199,8 +199,9 @@ public class TblProjectServiceImpl extends ServiceImpl<TblProjectMapper, TblProj
         String updateAtStr = Objects.isNull(updateAt) ? null : updateAt.format(formatter);
 
         //base info
-        ProjectBaseInfoVo baseInfoVo = new ProjectBaseInfoVo();
-        if (baseInfoList.size() > 0) {
+        ProjectBaseInfoVo baseInfoVo = null;
+        if (!baseInfoList.isEmpty()) {
+            baseInfoVo = new ProjectBaseInfoVo();
             baseInfoVo.setTotal(baseInfoList.size());
             int askNum = 0;
             int noAskNumber = 0;
@@ -224,8 +225,9 @@ public class TblProjectServiceImpl extends ServiceImpl<TblProjectMapper, TblProj
         }
 
         //extend info
-        ProjectExtendInfoVo projectExtInfoVo = new ProjectExtendInfoVo();
-        if (extendInfoList.size() > 0) {
+        ProjectExtendInfoVo projectExtInfoVo = null;
+        if (!extendInfoList.isEmpty()) {
+            projectExtInfoVo = new ProjectExtendInfoVo();
             projectExtInfoVo.setTotal(extendInfoList.size());
 
             List<ExtendInfoVo> extendInfoVoList = new ArrayList<>();
