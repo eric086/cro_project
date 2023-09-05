@@ -15,4 +15,7 @@ public class ConfigMap {
 
     @Value("${cro.upload-file-path:/data/cro}")
     private String uploadFilePath;
+
+    @Value("${cro.ai-url}")
+    private String aiUrl;
 }

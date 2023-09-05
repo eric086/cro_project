@@ -29,3 +29,4 @@ cro:
   open-ai-token: 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
   token-cache-time: 28800 # 缓存8小时
   upload-file-path: {{UPLOAD_FILE_PATH}}
+  ai-url: http://101.34.251.26:8081

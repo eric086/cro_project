@@ -75,8 +75,9 @@ public class TokenFilter extends OncePerRequestFilter {
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
-
         return request.getRequestURI().contains("/actuator")
-                || request.getRequestURI().contains("/login/index");
+                || request.getRequestURI().contains("/login/index")
+                || request.getRequestURI().contains("/test/query")
+                ;
     }
 }
