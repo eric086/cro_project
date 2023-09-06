@@ -16,5 +16,6 @@ public class PassageVo {
     private String fileName;
     private Integer categoryId;
     private String categoryName;
+    private Double score;
 
 }

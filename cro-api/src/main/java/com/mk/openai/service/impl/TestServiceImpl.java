@@ -51,6 +51,13 @@ public class TestServiceImpl implements TestService {
         params.put("top_k", topK);
         List<Ai> listPassage = post(configMap.getAiUrl() + AI_SEARCH_URL, params);
 
+        if (listPassage.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        Map<Integer, Ai> aiMap = listPassage.stream().collect(Collectors.toMap(Ai::getId,
+                Function.identity()));
+
         // 段落id
         List<Integer> passageIds = listPassage.stream().map(Ai::getId).collect(Collectors.toList());
 
@@ -95,6 +102,16 @@ public class TestServiceImpl implements TestService {
                         categoryMap.get(regulation.getCategoryId()).getName() : "";
             }
 
+            Ai ai = aiMap.getOrDefault(p.getId(),null);
+
+            Double score = 0.0;
+            if(Objects.nonNull(ai)){
+                 score = ai.getScore();
+            }
+
+
+
+
             PassageVo passageVo = PassageVo.builder()
                     .passageId(p.getId())
                     .passage(p.getContent())
@@ -102,11 +119,12 @@ public class TestServiceImpl implements TestService {
                     .fileName(fileName)
                     .categoryId(categoryId)
                     .categoryName(categoryName)
+                    .score(score)
                     .build();
             passageVoList.add(passageVo);
         });
 
-        return passageVoList;
+        return passageVoList.stream().sorted(Comparator.comparing(PassageVo::getScore,Comparator.reverseOrder())).collect(Collectors.toList());
     }
 
     private <T> List<Ai> post(String url, T sendData) {

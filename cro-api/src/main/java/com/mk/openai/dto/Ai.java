@@ -11,4 +11,5 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Ai {
     private Integer id;
+    private Double score;
 }
