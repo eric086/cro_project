@@ -1,9 +1,8 @@
 package com.mk.openai.controller;
 
 import com.mk.openai.common.JsonResponse;
-import com.mk.openai.entity.request.LoginRequest;
 import com.mk.openai.entity.request.QueryRequest;
-import com.mk.openai.entity.vo.RegulationVo;
+import com.mk.openai.entity.vo.PassageVo;
 import com.mk.openai.service.TestService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,7 +22,7 @@ public class TestController {
     private TestService testService;
 
     @PostMapping("/query")
-    public JsonResponse<List<RegulationVo>> query(@RequestBody @Valid QueryRequest request) {
-        return JsonResponse.<List<RegulationVo>>builder().data(testService.query(request.getQuery(),request.getTopK())).wrapSuccess().build();
+    public JsonResponse<List<PassageVo>> query(@RequestBody @Valid QueryRequest request) {
+        return JsonResponse.<List<PassageVo>>builder().data(testService.query(request.getQuery(),request.getTopK())).wrapSuccess().build();
     }
 }

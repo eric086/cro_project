@@ -5,7 +5,7 @@ import com.mk.openai.dto.Ai;
 import com.mk.openai.entity.dao.TblCategory;
 import com.mk.openai.entity.dao.TblPassage;
 import com.mk.openai.entity.dao.TblRegulation;
-import com.mk.openai.entity.vo.RegulationVo;
+import com.mk.openai.entity.vo.PassageVo;
 import com.mk.openai.exception.ServiceException;
 import com.mk.openai.service.TblCategoryService;
 import com.mk.openai.service.TblPassageService;
@@ -45,7 +45,7 @@ public class TestServiceImpl implements TestService {
     private final TblRegulationService tblRegulationService;
 
     @Override
-    public List<RegulationVo> query(String query,String topK){
+    public List<PassageVo> query(String query, String topK){
         Map<String, String> params = new HashMap<>();
         params.put("query", query);
         params.put("top_k", topK);
@@ -54,40 +54,59 @@ public class TestServiceImpl implements TestService {
         // 段落id
         List<Integer> passageIds = listPassage.stream().map(Ai::getId).collect(Collectors.toList());
 
+        // 段落列表
+        List<TblPassage> passageList = tblPassageService.listByIds(passageIds);
+
+        if (passageList.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+
         // 法规id
-        List<Integer> regulationIds = tblPassageService.listByIds(passageIds).stream().map(TblPassage::getRegulationId).collect(Collectors.toList());
+        List<Integer> regulationIds = passageList.stream().map(TblPassage::getRegulationId).collect(Collectors.toList());
 
         // 法规
         List<TblRegulation> regulationList = tblRegulationService.listByIds(regulationIds);
 
-        if (regulationList.isEmpty()) {
-            return Collections.emptyList();
-        }
+        Map<Integer,TblRegulation> regulationMap = regulationList.stream().collect(Collectors.toMap(TblRegulation::getId,
+                Function.identity()));
 
         List<TblCategory> categoryList = tblCategoryService.list();
 
         Map<Integer, TblCategory> categoryMap = categoryList.stream().collect(Collectors.toMap(TblCategory::getId,
                 Function.identity()));
 
-        List<RegulationVo> regulationVoList = new ArrayList<>();
+        List<PassageVo> passageVoList = new ArrayList<>();
 
-        regulationList.forEach(r -> {
-            String categoryName = categoryMap.containsKey(r.getCategoryId()) ?
-                    categoryMap.get(r.getCategoryId()).getName() : "";
+        passageList.forEach(p -> {
 
-            RegulationVo regulationVo = RegulationVo.builder()
-                    .regulationId(r.getId())
-                    .fileName(r.getFileName())
-                    .filePath(r.getFilePath())
-                    .categoryId(r.getCategoryId())
+            TblRegulation regulation = regulationMap.getOrDefault(p.getRegulationId(), null);
+
+            Integer regulationId = 0;
+            String fileName = "";
+            Integer categoryId = 0;
+            String categoryName = null;
+
+            if(Objects.nonNull(regulation)){
+                regulationId = regulation.getId();
+                fileName = regulation.getFileName();
+                categoryId = regulation.getCategoryId();
+                categoryName = categoryMap.containsKey(regulation.getCategoryId()) ?
+                        categoryMap.get(regulation.getCategoryId()).getName() : "";
+            }
+
+            PassageVo passageVo = PassageVo.builder()
+                    .passageId(p.getId())
+                    .passage(p.getContent())
+                    .regulationId(regulationId)
+                    .fileName(fileName)
+                    .categoryId(categoryId)
                     .categoryName(categoryName)
                     .build();
-            regulationVoList.add(regulationVo);
+            passageVoList.add(passageVo);
         });
 
-        return regulationVoList;
-
-
+        return passageVoList;
     }
 
     private <T> List<Ai> post(String url, T sendData) {

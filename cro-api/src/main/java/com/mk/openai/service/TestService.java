@@ -1,9 +1,9 @@
 package com.mk.openai.service;
 
-import com.mk.openai.entity.vo.RegulationVo;
+import com.mk.openai.entity.vo.PassageVo;
 
 import java.util.List;
 
 public interface TestService {
-    List<RegulationVo> query(String query, String topK);
+    List<PassageVo> query(String query, String topK);
 }
