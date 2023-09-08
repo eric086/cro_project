@@ -1,3 +1,4 @@
+/*
 package com.mk.openai.dto;
 
 import lombok.AllArgsConstructor;
@@ -33,3 +34,4 @@ public class LawRaw {
     @Field("created_at")
     private Long createdAt;
 }
+*/

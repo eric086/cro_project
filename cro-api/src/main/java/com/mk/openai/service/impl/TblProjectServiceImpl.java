@@ -30,6 +30,7 @@ public class TblProjectServiceImpl extends ServiceImpl<TblProjectMapper, TblProj
     private final TblProjectExtendService tblProjectExtendService;
     private final TblFileService tblFileService;
     private final TblUserService tblUserService;
+    private final AsyncProjectRegulationServiceImpl asyncProjectRegulationService;
 
     @Override
     public List<ProjectVo> getListByUserId(Integer userId) {
@@ -96,13 +97,16 @@ public class TblProjectServiceImpl extends ServiceImpl<TblProjectMapper, TblProj
         tblProjectBaseService.remove(lambdaQuery);
 
         List<TblProjectBase> insertList = new ArrayList<>();
+        List<String> queryList = new ArrayList<>();
         request.getBaseInfo().forEach(baseInfo -> {
+            String query = baseInfo.getAsk() + baseInfo.getAnswer();
             TblProjectBase base = TblProjectBase.builder()
                     .projectId(request.getProjectId())
                     .ask(baseInfo.getAsk())
                     .answer(baseInfo.getAnswer())
                     .build();
             insertList.add(base);
+            queryList.add(query);
         });
 
         tblProjectBaseService.saveBatch(insertList);
@@ -111,8 +115,9 @@ public class TblProjectServiceImpl extends ServiceImpl<TblProjectMapper, TblProj
         project.setUpdateAt(new Date());
         updateById(project);
 
-
         //TODO AI重新选择法规
+        asyncProjectRegulationService.baseInfoChangeProjectRegulation(project.getId(),queryList);
+
     }
 
     @Override

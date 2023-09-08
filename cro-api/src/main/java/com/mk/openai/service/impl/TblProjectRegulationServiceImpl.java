@@ -9,13 +9,12 @@ import com.mk.openai.entity.dao.TblProjectRegulation;
 import com.mk.openai.entity.dao.TblRegulation;
 import com.mk.openai.entity.request.ProjectRegulationRequest;
 import com.mk.openai.entity.vo.ProjectRegulationVo;
-import com.mk.openai.service.TblCategoryService;
-import com.mk.openai.service.TblProjectRegulationService;
+import com.mk.openai.service.*;
 import com.mk.openai.mapper.TblProjectRegulationMapper;
-import com.mk.openai.service.TblProjectService;
-import com.mk.openai.service.TblRegulationService;
 import lombok.AllArgsConstructor;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -36,6 +35,8 @@ public class TblProjectRegulationServiceImpl extends ServiceImpl<TblProjectRegul
     private final TblCategoryService tblCategoryService;
 
     private final TblProjectService tblProjectService;
+
+    private final AiService aiService;
 
     @Override
     public List<ProjectRegulationVo> getProjectRegulationList(Integer projectId) {
@@ -85,6 +86,7 @@ public class TblProjectRegulationServiceImpl extends ServiceImpl<TblProjectRegul
     }
 
     @Override
+    @Transactional
     public void saveProjectRegulation(ProjectRegulationRequest request) {
 
         tblProjectService.checkProject(request.getProjectId());
